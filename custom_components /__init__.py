@@ -3,7 +3,7 @@ from __future__ import annotations
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 
-from . import hub
+from .hub import CclHub
 
 from .const import DOMAIN
 
@@ -13,7 +13,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     
     # Store an instance of the "connecting" class that does the work of speaking
     # with your actual devices.
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = hub.CclHub(hass, entry.data["name"], entry.data["unique_id"])
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = CclHub(hass, entry.data["name"], entry.data["unique_id"])
 
     # This creates each HA object for each platform your device requires.
     # It's done by calling the `async_setup_entry` function in each platform module.
