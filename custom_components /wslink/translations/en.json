@@ -1,0 +1,12 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Click on 'Submit' to register a weather station."
+      }
+    },
+    "create_entry": {
+      "default": "Please open the WSLink App on your mobile device to finish the configuration.\n\nGo to the Settings panel of your weather station,\n then click on 'Weather server' -> 'Home Assistant'.\n\nFill in each blanks as below, and click on 'Save' afterwards.\nServer IP: {host}\nPort: {port}\n Path: /{path}"
+    }
+  }
+}
