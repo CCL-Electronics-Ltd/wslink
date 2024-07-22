@@ -2,7 +2,7 @@
   "config": {
     "step": {
       "user": {
-        "description": "Click on 'Submit' to register a CCL Weather Station."
+        "description": "Click on 'Submit' to register a weather station."
       }
     },
     "create_entry": {
