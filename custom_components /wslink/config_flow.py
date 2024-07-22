@@ -12,7 +12,7 @@ from homeassistant.helpers.network import get_url
 from .const import DOMAIN
 
 class CCLConfigFlow(ConfigFlow, domain=DOMAIN):
-
+    """Handle a config flow."""
     VERSION = 1
 
     async def async_step_user(
