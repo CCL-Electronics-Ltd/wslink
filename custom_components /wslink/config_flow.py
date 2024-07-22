@@ -1,3 +1,4 @@
+"""Config flow for the WSLink Integration."""
 from __future__ import annotations
 
 import secrets
