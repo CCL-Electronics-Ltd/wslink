@@ -1,37 +1,40 @@
 from __future__ import annotations
 
-from homeassistant import config_entries
-from .const import DOMAIN
-
+import secrets
 from typing import Any
 
-import voluptuous as vol
+from yarl import URL
 
-from homeassistant import data_entry_flow
+from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
+from homeassistant.helpers.network import get_url
 
-class CclConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+from .const import DOMAIN
+
+class CCLConfigFlow(ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    async def async_step_user(self, user_input: dict[str, str] | None = None):
-
-        def __init__(self) -> None:
-            """Initialize the config flow."""
-            self.data_schema = vol.Schema(
-                {
-                    vol.Required("name"): str,
-                    vol.Required("unique_id"): str,
-                }
-            )
-
-        if user_input is not None:
-            return self.async_create_entry(
-                title = "Title of the entry",
-                data = user_input
-                )
-
-        errors={}
+    async def async_step_user(
+        self, user_input: dict[str, Any] | None = None
+    )-> ConfigFlowResult:
+        """Handle the initial step."""
+        self._passkey: str
         
-        return self.async_show_form(
-            step_id="user", data_schema=self.data_schema, errors=errors
+        if user_input is None:
+            self._passkey = secrets.token_hex(3)
+            return self.async_show_form(step_id = "user")
+        
+        url = URL(get_url(self.hass))
+        assert url.host
+
+        return self.async_create_entry(
+            title = "CCL Weather Station",
+            data = {
+                "passkey": self._passkey,
+            },
+            description_placeholders = {
+                "host": url.host,
+                "port": "42373",
+                "path": self._passkey,
+            },
         )
