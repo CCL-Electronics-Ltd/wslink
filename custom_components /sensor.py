@@ -5,9 +5,7 @@ from __future__ import annotations
 import dataclasses
 import time
 
-#from aioccl import CCLDevice, CCLSensor, CCLSensorTypes
-from .device import CCLDevice
-from .ccl_sensor import CCLSensor, CCLSensorTypes
+from aioccl import CCLDevice, CCLSensor, CCLSensorTypes
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
