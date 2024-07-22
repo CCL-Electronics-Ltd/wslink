@@ -4,9 +4,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.const import Platform
 from homeassistant.config_entries import ConfigEntry
 
-#from aioccl import CCLServer, CCLDevice
-from .device import CCLDevice
-from .server import CCLServer
+from aioccl import CCLServer, CCLDevice
 
 from .const import DOMAIN
 
