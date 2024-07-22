@@ -1,30 +1,32 @@
 from __future__ import annotations
 
 from homeassistant.core import HomeAssistant
+from homeassistant.const import Platform
 from homeassistant.config_entries import ConfigEntry
 
-from .hub import CclHub
+#from aioccl import CCLServer, CCLDevice
+from .device import CCLDevice
+from .server import CCLServer
 
 from .const import DOMAIN
 
 PLATFORMS: list[str] = ["sensor"]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    
-    # Store an instance of the "connecting" class that does the work of speaking
-    # with your actual devices.
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = CclHub(hass, entry.data["name"], entry.data["unique_id"])
+    """Set up a config entry for a single CCL device."""
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = CCLDevice(
+        entry.data["passkey"]
+    )
 
-    # This creates each HA object for each platform your device requires.
-    # It's done by calling the `async_setup_entry` function in each platform module.
+    CCLServer.add_copy(hass.data[DOMAIN][entry.entry_id])
+    await CCLServer.run()
+
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+
     return True
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    
-    # This is called when an entry/configured device is to be removed. The class
-    # needs to unload itself, and remove callbacks. See the classes for further
-    # details
+    """Unload a config entry."""
     unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
