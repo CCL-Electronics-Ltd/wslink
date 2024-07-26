@@ -81,7 +81,7 @@ async def async_setup_entry(
     device.register_new_sensor_cb(_new_sensor)
     entry.async_on_unload(lambda: device.remove_new_sensor_cb(_new_sensor))
 
-    for key, sensor in device.sensors.items:
+    for key, sensor in device.sensors.items():
         _new_sensor(sensor)
 
 
