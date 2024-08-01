@@ -107,7 +107,7 @@ class CCLSensorEntity(SensorEntity):
             name = self._device.model + " - " + self._device.device_id,
             model = self._device.model,
             serial_number = self._device.serial_no,
-            manufacturer = "CCL",
+            manufacturer = "WSLink",
             sw_version = self._device.version,
         )
 
