@@ -9,7 +9,7 @@ from aioccl import CCLServer, CCLDevice
 
 from .const import DOMAIN
 
-PLATFORMS: list[str] = ["sensor"]
+PLATFORMS: list[Platform] = [Platform.BINARY_SENSOR, Platform.SENSOR]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up a config entry for a single CCL device."""
@@ -19,7 +19,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     CCLServer.add_copy(hass.data[DOMAIN][entry.entry_id])
     await CCLServer.run()
-
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True
@@ -27,6 +26,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
     unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
 
