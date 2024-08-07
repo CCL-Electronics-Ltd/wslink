@@ -4,6 +4,7 @@ from __future__ import annotations
 from aioccl import CCLDevice, CCLSensor
 
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import Entity
 
 from .const import DOMAIN
 
@@ -22,7 +23,7 @@ class CCLEntity(Entity):
         self._device = device
         
         self._attr_unique_id = f"{device.device_id}-{internal.key}"
-        self__attr_device_info = DeviceInfo(
+        self._attr_device_info = DeviceInfo(
             identifiers={
                 (DOMAIN, device.device_id),
             },
