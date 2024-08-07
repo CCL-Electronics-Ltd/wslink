@@ -34,6 +34,7 @@ class CCLEntity(Entity):
             sw_version = device.version,
         )
         
+    @property
     def available(self) -> bool:
         return self._internal.value is not None
 

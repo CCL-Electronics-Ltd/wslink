@@ -45,8 +45,8 @@ async def async_setup_entry(
             )
         async_add_entities([CCLBinarySensorEntity(sensor, device, entity_description)])
 
-    device.register_new_sensor_cb(_new_binary_sensor)
-    entry.async_on_unload(lambda: device.remove_new_sensor_cb(_new_binary_sensor))
+    device.register_new_binary_sensor_cb(_new_binary_sensor)
+    entry.async_on_unload(lambda: device.remove_new_binary_sensor_cb(_new_binary_sensor))
 
     for key, sensor in device.binary_sensors.items():
         _new_binary_sensor(sensor)
