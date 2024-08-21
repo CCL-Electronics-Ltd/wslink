@@ -107,7 +107,6 @@ CCL_SENSOR_DESCRIPTIONS: dict[str, SensorEntityDescription] = {
     ),
     CCLSensorTypes.VOC: SensorEntityDescription(
         key="VOC",
-        state_class=SensorStateClass.MEASUREMENT,
     ),
     CCLSensorTypes.PM10: SensorEntityDescription(
         key="PM10",
@@ -124,6 +123,9 @@ CCL_SENSOR_DESCRIPTIONS: dict[str, SensorEntityDescription] = {
     CCLSensorTypes.AQI: SensorEntityDescription(
         key="AQI",
         state_class=SensorStateClass.MEASUREMENT,
+    ),
+    CCLSensorTypes.BATTERY: SensorEntityDescription(
+        key="BATTERY",
     ),
 }
 
