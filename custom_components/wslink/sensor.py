@@ -12,14 +12,18 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.const import (
+    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+    CONCENTRATION_PARTS_PER_BILLION,
+    CONCENTRATION_PARTS_PER_MILLION,
+    DEGREE,
+    EntityCategory,
+    PERCENTAGE,
     UnitOfIrradiance,
     UnitOfPrecipitationDepth,
     UnitOfPressure,
+    UnitOfSpeed,
     UnitOfTemperature,
     UnitOfVolumetricFlux,
-    PERCENTAGE,
-    DEGREE,
-    UnitOfSpeed,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -60,7 +64,7 @@ CCL_SENSOR_DESCRIPTIONS: dict[str, SensorEntityDescription] = {
     ),
     CCLSensorTypes.RAIN_RATE: SensorEntityDescription(
         key="RAIN_RATE",
-        device_class=SensorDeviceClass.PRECIPITATION,
+        device_class=SensorDeviceClass.PRECIPITATION_INTENSITY,
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfVolumetricFlux.MILLIMETERS_PER_HOUR,
     ),
@@ -72,7 +76,6 @@ CCL_SENSOR_DESCRIPTIONS: dict[str, SensorEntityDescription] = {
     ),
     CCLSensorTypes.UVI: SensorEntityDescription(
         key="UVI",
-        device_class=SensorDeviceClass.IRRADIANCE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     CCLSensorTypes.RADIATION: SensorEntityDescription(
@@ -83,6 +86,44 @@ CCL_SENSOR_DESCRIPTIONS: dict[str, SensorEntityDescription] = {
     ),
     CCLSensorTypes.CH_SENSOR_TYPE: SensorEntityDescription(
         key="CH_SENSOR_TYPE",
+    ),
+    CCLSensorTypes.CO: SensorEntityDescription(
+        key="CO",
+        device_class=SensorDeviceClass.CO,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
+    ),
+    CCLSensorTypes.CO2: SensorEntityDescription(
+        key="CO2",
+        device_class=SensorDeviceClass.CO2,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
+    ),
+    CCLSensorTypes.VOLATILE: SensorEntityDescription(
+        key="VOLATILE",
+        device_class=SensorDeviceClass.VOLATILE_ORGANIC_COMPOUNDS_PARTS,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=CONCENTRATION_PARTS_PER_BILLION,
+    ),
+    CCLSensorTypes.VOC: SensorEntityDescription(
+        key="VOC",
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    CCLSensorTypes.PM10: SensorEntityDescription(
+        key="PM10",
+        device_class=SensorDeviceClass.PM10,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+    ),
+    CCLSensorTypes.PM25: SensorEntityDescription(
+        key="PM25",
+        device_class=SensorDeviceClass.PM25,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+    ),
+    CCLSensorTypes.AQI: SensorEntityDescription(
+        key="AQI",
+        state_class=SensorStateClass.MEASUREMENT,
     ),
 }
 

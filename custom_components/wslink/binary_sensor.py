@@ -11,6 +11,7 @@ from homeassistant.components.binary_sensor import (
     BinarySensorEntityDescription,
 )
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
@@ -25,6 +26,9 @@ CCL_BINARY_SENSOR_DESCRIPTIONS: dict[str, BinarySensorEntityDescription] = {
     CCLSensorTypes.CONNECTION: BinarySensorEntityDescription(
         key="CONNECTION",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
+    ),
+    CCLSensorTypes.LEAKAGE: BinarySensorEntityDescription(
+        key="LEAKAGE",
     ),
 }
 
@@ -67,6 +71,6 @@ class CCLBinarySensorEntity(CCLEntity, BinarySensorEntity):
         self.entity_description = entity_description
 
     @property
-    def is_on(self) -> bool:
+    def is_on(self) -> None | bool:
         """Return the state of the sensor."""
         return bool(self._internal.value)
