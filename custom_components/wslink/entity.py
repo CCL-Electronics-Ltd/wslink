@@ -25,9 +25,9 @@ class CCLEntity(Entity):
         self._attr_unique_id = f"{device.device_id}-{internal.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={
-                (DOMAIN, device.device_id+internal.compartment),
+                (DOMAIN, self.device_id),
             },
-            name = self.device_title,
+            name = self.device_name,
             model = device.model,
             serial_number = device.serial_no,
             manufacturer = "WSLink",
@@ -35,10 +35,16 @@ class CCLEntity(Entity):
         )
     
     @property
-    def device_title(self) -> str:
+    def device_name(self) -> str:
         if self._internal.compartment is not None:
             return self._device.name + " " + self._internal.compartment
         return self._device.name
+    
+    @property
+    def device_id(self) -> str:
+        if self._internal.compartment is not None:
+            return (self.device_name + "_" + self._internal.compartment).replace(" ", "").replace("-", "_").lower()
+        return self.device_name.replace(" ", "").replace("-", "_").lower()
     
     @property
     def available(self) -> bool:
